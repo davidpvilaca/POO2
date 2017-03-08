@@ -6,4 +6,6 @@
 *.lock
 out
 **/out
-
+sources_aula
+/Exercicio5/nbproject/private/
+/Exercicio5/build/
