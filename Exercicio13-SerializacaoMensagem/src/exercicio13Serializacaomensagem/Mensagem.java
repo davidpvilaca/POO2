@@ -1,0 +1,75 @@
+/*
+ * To change this license header, choose License Headers in Project Properties.
+ * To change this template file, choose Tools | Templates
+ * and open the template in the editor.
+ */
+package exercicio13Serializacaomensagem;
+
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
+import java.io.IOException;
+import java.io.ObjectInputStream;
+import java.io.ObjectOutputStream;
+import java.io.Serializable;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+
+/**
+ *
+ * @author davidpvilaca
+ */
+public class Mensagem implements Serializable {
+    
+    private String texto;
+    
+    private static String tratarFilename(String filename) {
+        return filename.trim().replace("/", "");
+    }
+    
+    public static void salvarSerializado(Mensagem msg, String filename){
+        String _filename = Mensagem.tratarFilename(filename);
+        
+        try {
+            String current = new java.io.File(".").getCanonicalPath();
+            FileOutputStream fileSerializado = new FileOutputStream(current + "/" + _filename);
+            ObjectOutputStream outputSerializado = new ObjectOutputStream(fileSerializado);
+            
+            outputSerializado.writeObject(msg);
+            
+            System.out.println("Mensagem Salva");
+            System.out.println("Arquivo gerado em: " + current + "/" + _filename);
+        } catch (FileNotFoundException ex) {
+            Logger.getLogger(Usuario.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (IOException ex) {
+            Logger.getLogger(Usuario.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }
+    
+    public static Mensagem lerSerializado(String filename) {
+        String _filename = Mensagem.tratarFilename(filename);
+        Mensagem msg = null;
+        
+        try {
+            String current = new java.io.File(".").getCanonicalPath();
+            FileInputStream fileIn = new FileInputStream(current + "/" + _filename);
+            ObjectInputStream in = new ObjectInputStream(fileIn);
+            msg = (Mensagem) in.readObject();
+                    
+            System.out.println("Deserializando Mensagem...");
+            System.out.println("Texto: " + (msg != null ? msg.getTexto(): null));
+
+        } catch (IOException | ClassNotFoundException ex) {
+            Logger.getLogger(Usuario.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        
+        return msg;
+    }
+    
+    public String getTexto() {
+        return texto;
+    }
+    public void setTexto(String texto) {
+        this.texto = texto;
+    }
+}
