@@ -12,6 +12,7 @@ import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
@@ -23,6 +24,13 @@ public class Usuario implements Serializable {
     public String nome;
     private String email;
     private String senha;
+    private ArrayList<Mensagem> enviadas;
+    private ArrayList<Mensagem> recebidas;
+    
+    public Usuario() {
+        this.enviadas = new ArrayList<Mensagem>();
+        this.recebidas = new ArrayList<Mensagem>();
+    }
     
     private static String tratarFilename(String filename) {
         return filename.trim().replace("/", "");
@@ -61,12 +69,28 @@ public class Usuario implements Serializable {
             System.out.println("Nome: " + (usuario != null ? usuario.getNome() : null));
             System.out.println("Email: " + (usuario != null ? usuario.getEmail() : null));
             System.out.println("Senha: " + (usuario != null ? usuario.getSenha() : null));
+            if (usuario.mensagensEnviadas().size() > 0) {
+                System.out.println("Mensagens enviadas: ");
+                usuario.enviadas.forEach((msg) -> System.out.println(msg.getTexto()));
+            }
 
         } catch (IOException | ClassNotFoundException ex) {
             Logger.getLogger(Usuario.class.getName()).log(Level.SEVERE, null, ex);
         }
         
         return usuario;
+    }
+    
+    public void enviarMensagem(Mensagem msg) {
+        this.enviadas.add(msg);
+    }
+    
+    public ArrayList<Mensagem> mensagensRecebidas() {
+        return this.recebidas;
+    }
+    
+    public ArrayList<Mensagem> mensagensEnviadas() {
+        return this.enviadas;
     }
     
     public void setNome(String nome) {

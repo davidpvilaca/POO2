@@ -12,6 +12,7 @@ import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
@@ -22,6 +23,11 @@ import java.util.logging.Logger;
 public class Mensagem implements Serializable {
     
     private String texto;
+    private ArrayList<Mensagem> respostas;
+    
+    public Mensagem() {
+        this.respostas = new ArrayList<Mensagem>();
+    }
     
     private static String tratarFilename(String filename) {
         return filename.trim().replace("/", "");
@@ -64,6 +70,14 @@ public class Mensagem implements Serializable {
         }
         
         return msg;
+    }
+    
+    public void responder(Mensagem msg) {
+        this.respostas.add(msg);
+    }
+    
+    public ArrayList<Mensagem> respostas() {
+        return this.respostas;
     }
     
     public String getTexto() {

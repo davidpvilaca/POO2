@@ -22,13 +22,16 @@ public class Exercicio13SerializacaoMensagem {
         user.setNome("David");
         user.setEmail("david@vilaca.com");
         user.setSenha("123456");
+        Mensagem msgDavid = new Mensagem();
+        msgDavid.setTexto("Hello world, David!");
+        user.enviarMensagem(msgDavid);
         
         String nomeArquivo = "david.ser";
         
         Usuario.salvarSerializado(user, nomeArquivo);
         Usuario.lerSerializado(nomeArquivo);
         
-        // Serializando mensagem
+//         Serializando mensagem
         System.out.println("========== MENSAGEM ==========");
         
         Mensagem mensagem = new Mensagem();
