@@ -15,8 +15,8 @@ public class Main {
      * @param args the command line arguments
      */
     public static void main(String[] args) {
-        // TODO code application logic here 
         SalvaCliente salva = new SalvaCliente();
+        // Criando ClienteS2 pra simular uma instância externa
         ClienteS2 c2 = new ClienteS2();
         c2.setCelular("1111");
         c2.setDddCelular("027");
@@ -25,7 +25,9 @@ public class Main {
         c2.setEmail("email"); 
         c2.setNome("jose"); 
         c2.setSobreNome("Silva");
-        salva.salva(null);
+        // Adaptando instancia externa
+        AdapterClienteS2 cliente = new AdapterClienteS2(c2);
+        salva.salva(cliente);
     }
     
 }

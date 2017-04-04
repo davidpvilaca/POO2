@@ -10,7 +10,7 @@ package exercicio17Adaptercliente;
  * @author davidpvilaca
  */
 public class SalvaCliente {
-    public void salva(ClienteS1 cliente){ 
+    public void salva(ICliente cliente){ 
         System.out.println("Salvando o cliente...");
         System.out.println(cliente.getNomeCompleto());
         System.out.println(cliente.getTelefone());
