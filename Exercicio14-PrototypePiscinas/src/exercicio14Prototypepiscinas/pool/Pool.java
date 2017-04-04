@@ -36,8 +36,10 @@ public abstract class Pool implements Cloneable {
         Pool obj = null;
         try {
             obj = (Pool)super.clone();
-            obj.setColor(this.color);
-            obj.setIsAntiLeak(this.isAntiLeak);
+            // As duas linhas comentadas abaixo são desnecessárias visto que 
+            // o clone já copia os tipos básicos
+//            obj.setColor(this.color); 
+//            obj.setIsAntiLeak(this.isAntiLeak);
         } catch (CloneNotSupportedException ex) {
             Logger.getLogger(Pool.class.getName()).log(Level.SEVERE, null, ex);
         }
